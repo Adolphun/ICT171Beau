@@ -1,45 +1,52 @@
+<?php
 // Function to add a task
-void addTask(GtkWidget *widget, gpointer data) {
-    // Get the values from the entry fields
-    const gchar *numTasksStr = gtk_entry_get_text(GTK_ENTRY(numTasksEntry));
-    const gchar *taskNameStr = gtk_entry_get_text(GTK_ENTRY(taskNameEntry));
-    const gchar *taskDurationStr = gtk_entry_get_text(GTK_ENTRY(taskDurationEntry));
-    const gchar *dayStr = gtk_entry_get_text(GTK_ENTRY(dayEntry));
+function addTask() {
+    // Get the values from the input fields
+    $numTasksStr = $_POST["numTasksEntry"];
+    $taskNameStr = $_POST["taskNameEntry"];
+    $taskDurationStr = $_POST["taskDurationEntry"];
+    $dayStr = $_POST["dayEntry"];
 
     // Convert the day string to an integer
-    int day = 0;
-    if (g_strcmp0(dayStr, "Monday") == 0) {
-    } else if (g_strcmp0(dayStr, "Tuesday") == 0) {
-        day = 2;
-    } else if (g_strcmp0(dayStr, "Wednesday") == 0) {
-        day = 3;
-    } else if (g_strcmp0(dayStr, "Thursday") == 0) {
-        day = 4;
-    } else if (g_strcmp0(dayStr, "Friday") == 0) {
-        day = 5;
-    } else if (g_strcmp0(dayStr, "Saturday") == 0) {
-        day = 6;
-    } else if (g_strcmp0(dayStr, "Sunday") == 0) {
-        day = 7;
+    $day = 0;
+    if ($dayStr === "Monday") {
+    } else if ($dayStr === "Tuesday") {
+        $day = 2;
+    } else if ($dayStr === "Wednesday") {
+        $day = 3;
+    } else if ($dayStr === "Thursday") {
+        $day = 4;
+    } else if ($dayStr === "Friday") {
+        $day = 5;
+    } else if ($dayStr === "Saturday") {
+        $day = 6;
+    } else if ($dayStr === "Sunday") {
+        $day = 7;
     } else {
         // Invalid day entered
-        gtk_label_set_text(GTK_LABEL(summaryLabel), "Invalid day entered");
+        echo "Invalid day entered";
         return;
     }
 
     // Convert the task duration string to an integer
-    int taskDuration = atoi(taskDurationStr);
+    $taskDuration = intval($taskDurationStr);
     // Convert minutes to hours
-    int taskDurationHours = taskDuration / 60;
+    $taskDurationHours = floor($taskDuration / 60);
 
     // Add your task processing logic here
 
-    // Clear the entry fields
-    gtk_entry_set_text(GTK_ENTRY(numTasksEntry), "");
-    gtk_entry_set_text(GTK_ENTRY(taskNameEntry), "");
-    gtk_entry_set_text(GTK_ENTRY(taskDurationEntry), "");
-    gtk_entry_set_text(GTK_ENTRY(dayEntry), "");
+    // Clear the input fields
+    $_POST["numTasksEntry"] = "";
+    $_POST["taskNameEntry"] = "";
+    $_POST["taskDurationEntry"] = "";
+    $_POST["dayEntry"] = "";
 
     // Update the summary label
-    gtk_label_set_text(GTK_LABEL(summaryLabel), "Task added successfully");
+    echo "Task added successfully";
 }
+
+// Call the addTask function when the form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    addTask();
+}
+?>
