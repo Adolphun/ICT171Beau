@@ -45,8 +45,43 @@ function addTask() {
     echo "Task added successfully";
 }
 
+// Display the calendar form
+function displayCalendar() {
+    ?>
+    <html>
+    <head>
+        <title>Task Calendar</title>
+    </head>
+    <body>
+        <h1>Task Calendar</h1>
+        <form method="POST" action="">
+            <label for="numTasksEntry">Number of Tasks:</label>
+            <input type="number" name="numTasksEntry" id="numTasksEntry" required><br><br>
+            <label for="taskNameEntry">Task Name:</label>
+            <input type="text" name="taskNameEntry" id="taskNameEntry" required><br><br>
+            <label for="taskDurationEntry">Task Duration (in minutes):</label>
+            <input type="number" name="taskDurationEntry" id="taskDurationEntry" required><br><br>
+            <label for="dayEntry">Day:</label>
+            <select name="dayEntry" id="dayEntry" required>
+                <option value="Monday">Monday</option>
+                <option value="Tuesday">Tuesday</option>
+                <option value="Wednesday">Wednesday</option>
+                <option value="Thursday">Thursday</option>
+                <option value="Friday">Friday</option>
+                <option value="Saturday">Saturday</option>
+                <option value="Sunday">Sunday</option>
+            </select><br><br>
+            <input type="submit" value="Add Task">
+        </form>
+    </body>
+    </html>
+    <?php
+}
+
 // Call the addTask function when the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     addTask();
+} else {
+    displayCalendar();
 }
 ?>
