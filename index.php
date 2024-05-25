@@ -27,8 +27,6 @@ function displayCalendar() {
         }
         ?>
         <form method="POST" action="">
-            <label for="numTasksEntry">Number of Tasks:</label>
-            <input type="number" name="numTasksEntry" id="numTasksEntry" required><br><br>
             <label for="taskNameEntry">Task Name:</label>
             <input type="text" name="taskNameEntry" id="taskNameEntry" required><br><br>
             <label for="taskDurationEntry">Task Duration (in hours):</label>
@@ -60,7 +58,6 @@ function displayCalendar() {
     <?php
 }
 
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $taskName = $_POST['taskNameEntry'];
     $taskDuration = $_POST['taskDurationEntry'];
@@ -72,29 +69,29 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 
 displayCalendar();
+
 // Function to add a task
 function addTask() {
     // Get the values
-    $numTasksStr = $_POST["numTasksEntry"];
-    $taskNameStr = $_POST["taskNameEntry"];
-    $taskDurationStr = $_POST["taskDurationEntry"];
-    $dayStr = $_POST["dayEntry"];
+    $taskName = $_POST["taskNameEntry"];
+    $taskDuration = $_POST["taskDurationEntry"];
+    $day = $_POST["dayEntry"];
 
     // Convert the day string to an int because thats why.
-    $day = 0;
-    if ($dayStr === "Monday") {
-    } else if ($dayStr === "Tuesday") {
-        $day = 2;
-    } else if ($dayStr === "Wednesday") {
-        $day = 3;
-    } else if ($dayStr === "Thursday") {
-        $day = 4;
-    } else if ($dayStr === "Friday") {
-        $day = 5;
-    } else if ($dayStr === "Saturday") {
-        $day = 6;
-    } else if ($dayStr === "Sunday") {
-        $day = 7;
+    $dayNum = 0;
+    if ($day === "Monday") {
+    } else if ($day === "Tuesday") {
+        $dayNum = 2;
+    } else if ($day === "Wednesday") {
+        $dayNum = 3;
+    } else if ($day === "Thursday") {
+        $dayNum = 4;
+    } else if ($day === "Friday") {
+        $dayNum = 5;
+    } else if ($day === "Saturday") {
+        $dayNum = 6;
+    } else if ($day === "Sunday") {
+        $dayNum = 7;
     } else {
         // Invalid day entered
         echo "Invalid day entered";
@@ -102,12 +99,11 @@ function addTask() {
     }
 
     // Convert the task duration string to an integer
-    $taskDuration = intval($taskDurationStr);
+    $taskDuration = intval($taskDuration);
     // Convert minutes to hours because I couldn't figure out a way to do that in PHP
     $taskDurationHours = floor($taskDuration / 60);
 
     // Clear the input fields
-    $_POST["numTasksEntry"] = "";
     $_POST["taskNameEntry"] = "";
     $_POST["taskDurationEntry"] = "";
     $_POST["dayEntry"] = "";
@@ -115,3 +111,4 @@ function addTask() {
     // Update the summary label
     echo "Task added successfully";
 }
+
