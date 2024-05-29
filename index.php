@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-include 'config.php';
+include 'configuration.php';
 include 'displaycalendar.php';
 include 'addtask.php';
 include 'licencefooter.php';
