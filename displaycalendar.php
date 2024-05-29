@@ -1,4 +1,5 @@
 // Display the calendar input form
+<?php
 function displayCalendar() {
     ?>
     <html>
