@@ -42,17 +42,6 @@ function displayCalendar() {
             </select><br><br>
             <input type="submit" value="Add Task">
         </form>
-        <?php
-        // Display how many hours left for each day
-        foreach ($_SESSION['totalHours'] as $day => $hours) {
-            echo "<p>$day: $hours hours remaining</p>";
-        }
-        // Display tasks
-        echo "<h2>Tasks:</h2>";
-        foreach ($_SESSION['tasks'] as $task) {
-            echo "<p>Task: {$task['name']}, Duration: {$task['duration']} hours, Day: {$task['day']}</p>";
-        }
-        ?>
         <h2>Physical Calendar:</h2>
         <table>
             <tr>
@@ -69,6 +58,16 @@ function displayCalendar() {
                 foreach ($days as $day) {
                     echo "<td>{$_SESSION['totalHours'][$day]} hours remaining</td>";
                 }
+                ?>
+            </tr>
+            <tr>
+                <?php
+                // Display tasks
+                echo "<td colspan='7'><h2>Tasks:</h2>";
+                foreach ($_SESSION['tasks'] as $task) {
+                    echo "<p>Task: {$task['name']}, Duration: {$task['duration']} hours, Day: {$task['day']}</p>";
+                }
+                echo "</td>";
                 ?>
             </tr>
         </table>
