@@ -12,6 +12,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $taskName = $_POST['taskNameEntry'];
         $taskDuration = $_POST['taskDurationEntry'];
         $day = $_POST['dayEntry'];
+
+        // check correct inputs 
+        if (!is_string($taskName) || empty($taskName)) {
+            echo "Invalid task name.";
+            return;
+        }
+        if (!is_numeric($taskDuration) || $taskDuration < 0 || $taskDuration > 24) {
+            echo "Invalid task duration.";
+            return;
+        }
+
+        // Check if task can be added negative hours are weird
+        if ($_SESSION['totalHours'][$day] < $taskDuration) {
+            echo "Not enough hours remaining for this day.";
+            return;
+        }
+
         $_SESSION['totalHours'][$day] -= $taskDuration;
         // Add task to tasks list
         $_SESSION['tasks'][] = array('name' => $taskName, 'duration' => $taskDuration, 'day' => $day);

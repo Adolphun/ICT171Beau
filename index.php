@@ -5,6 +5,7 @@ include 'processForm.php';
 include 'addTask.php';
 include 'addLicenceFooter.php';
 
+session_start();
 displayCalendar();
 addTask();
 addLicenceFooter();
