@@ -19,7 +19,7 @@ function displayCalendar() {
     <body>
         <h1>Task Calendar</h1>
         <?php
-        // If a task was added, display a success message this better work!!!
+        // If a task was added, display a success message
         if (isset($_SESSION['taskAdded']) && $_SESSION['taskAdded']) {
             echo "<p>Task added successfully!</p>";
             // Reset task added status
@@ -53,6 +53,25 @@ function displayCalendar() {
             echo "<p>Task: {$task['name']}, Duration: {$task['duration']} hours, Day: {$task['day']}</p>";
         }
         ?>
+        <h2>Physical Calendar:</h2>
+        <table>
+            <tr>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Saturday</th>
+                <th>Sunday</th>
+            </tr>
+            <tr>
+                <?php
+                foreach ($days as $day) {
+                    echo "<td>{$_SESSION['totalHours'][$day]} hours remaining</td>";
+                }
+                ?>
+            </tr>
+        </table>
     </body>
     </html>
     <?php
@@ -112,3 +131,13 @@ function addTask() {
     echo "Task added successfully";
 }
 
+function addLicenseFooter() {
+    echo "
+    <footer>
+        <p>Copyright &copy; 2024, Beau-Jared Harper. All rights reserved.</p>
+        <p>This website is running on Apache 2 on Linux. Distributed under the Apache License 2.0, anyone can use it.</p>
+        <p><a href='LICENSE'>View License</a></p>
+    </footer>
+    ";
+}
+?>
