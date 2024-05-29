@@ -2,14 +2,14 @@
 session_start();
 
 include 'config.php';
-include 'displayCalendar.php';
+include 'displaycalendar.php';
 include 'processForm.php';
 include 'addTask.php';
 include 'addLicenceFooter.php';
 
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-displayCalendar();
+displaycalendar();
 processForm();
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {

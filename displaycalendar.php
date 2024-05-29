@@ -1,5 +1,5 @@
 <?php
-function displayCalendar() {
+function displaycalendar() {
     ?>
     <html>
     <head>
