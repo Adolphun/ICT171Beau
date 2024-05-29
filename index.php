@@ -49,11 +49,15 @@ function displayCalendar() {
         }
         // Display tasks
         echo "<h2>Tasks:</h2>";
-        foreach ($_SESSION['tasks'] as $task) {
+        foreach ($_SESSION['tasks'] as $index => $task) {
             echo "<p>Task: {$task['name']}, Duration: {$task['duration']} hours, Day: {$task['day']}</p>";
+            echo "<form method='POST' action=''>";
+            echo "<input type='hidden' name='taskIndex' value='$index'>";
+            echo "<input type='submit' value='Remove Task'>";
+            echo "</form>";
         }
         ?>
-        <h2>Physical Calendar:</h2>
+        <h2>Calendar:</h2>
         <table>
             <tr>
                 <th>Monday</th>
@@ -78,13 +82,23 @@ function displayCalendar() {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $taskName = $_POST['taskNameEntry'];
-    $taskDuration = $_POST['taskDurationEntry'];
-    $day = $_POST['dayEntry'];
-    $_SESSION['totalHours'][$day] -= $taskDuration;
-    // Add task to tasks list
-    $_SESSION['tasks'][] = array('name' => $taskName, 'duration' => $taskDuration, 'day' => $day);
-    $_SESSION['taskAdded'] = true;
+    if (isset($_POST['taskIndex'])) {
+        $taskIndex = $_POST['taskIndex'];
+        // Remove the task from the tasks list
+        if (isset($_SESSION['tasks'][$taskIndex])) {
+            $removedTask = $_SESSION['tasks'][$taskIndex];
+            $_SESSION['totalHours'][$removedTask['day']] += $removedTask['duration'];
+            unset($_SESSION['tasks'][$taskIndex]);
+        }
+    } else {
+        $taskName = $_POST['taskNameEntry'];
+        $taskDuration = $_POST['taskDurationEntry'];
+        $day = $_POST['dayEntry'];
+        $_SESSION['totalHours'][$day] -= $taskDuration;
+        // Add task to tasks list
+        $_SESSION['tasks'][] = array('name' => $taskName, 'duration' => $taskDuration, 'day' => $day);
+        $_SESSION['taskAdded'] = true;
+    }
 }
 
 displayCalendar();
@@ -119,7 +133,6 @@ function addTask() {
 
     // Convert the task duration string to an integer
     $taskDuration = intval($taskDuration);
-    // Convert minutes to hours because I couldn't figure out a way to do that in PHP
     $taskDurationHours = floor($taskDuration / 60);
 
     // Clear the input fields
