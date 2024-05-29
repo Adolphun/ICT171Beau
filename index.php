@@ -103,7 +103,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 displayCalendar();
 
-// Function to add a task
 function addTask() {
     // Get the values
     $taskName = $_POST["taskNameEntry"];
@@ -143,14 +142,12 @@ function addTask() {
     // Update the summary label
     echo "Task added successfully";
 }
-
 function addLicenseFooter() {
-    echo "
+    ?>
     <footer>
         <p>Copyright &copy; 2024, Beau-Jared Harper. All rights reserved.</p>
         <p>This website is running on Apache 2 on Linux. Distributed under the Apache License 2.0, anyone can use it.</p>
         <p><a href='LICENSE'>View License</a></p>
     </footer>
-    ";
+    <?php
 }
-?>
